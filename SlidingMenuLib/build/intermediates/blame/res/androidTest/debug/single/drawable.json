@@ -2,5 +2,9 @@
     {
         "merged": "D:\\LouisWork\\WorkSpace4AndroidStudioProjects\\LouisSlidingMenu\\SlidingMenuLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow.xml",
         "source": "D:\\LouisWork\\WorkSpace4AndroidStudioProjects\\LouisSlidingMenu\\SlidingMenuLib\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow.xml"
+    },
+    {
+        "merged": "D:\\LouisAndroidStudioLibs\\SlidingMenuLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow.xml",
+        "source": "D:\\LouisAndroidStudioLibs\\SlidingMenuLib\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow.xml"
     }
 ]
