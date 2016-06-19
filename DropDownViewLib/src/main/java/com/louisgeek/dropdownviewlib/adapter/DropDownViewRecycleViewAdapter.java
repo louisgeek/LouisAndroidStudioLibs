@@ -1,4 +1,4 @@
-package com.louisgeek.dropdownviewlib;
+package com.louisgeek.dropdownviewlib.adapter;
 
 import android.content.Context;
 import android.os.Handler;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.louisgeek.dropdownviewlib.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,4 +3,7 @@
     <declare-styleable name="MyDropDownView">
         <attr name="itemArray" format="reference"/>
     </declare-styleable>
+    <declare-styleable name="MyProvinceCityAreaSelectView">
+        <attr name="allAreaKey" format="string"/>
+    </declare-styleable>
 </resources>

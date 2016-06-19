@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
+import com.louisgeek.dropdownviewlib.adapter.DropDownViewRecycleViewAdapter;
+
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
@@ -19,25 +21,24 @@ import java.util.Map;
  * Created by louisgeek on 2016/6/3.
  */
 public class DropDownPopupWindow extends PopupWindow implements DropDownViewRecycleViewAdapter.OnItemViewClickListener {
-    private List<Map<String, Object>> mNameStateList;
+    private List<Map<String, Object>> mDataList;
     private Context mContext;
     //  TextView id_pop_tv;
-    String nowName = "";
     RecyclerView mRecyclerView;
     int gridColumns;
     int itemWidth;
     private static final String TAG = "DropDownPopupWindow";
     View view;
     DropDownViewRecycleViewAdapter myRecycleViewAdapter;
-    public DropDownPopupWindow(Context context, List<Map<String, Object>> nameStateList,int gridColumns) {
+    public DropDownPopupWindow(Context context, List<Map<String, Object>> dataList,int gridColumns) {
         super(context);
-        mNameStateList = nameStateList;
+        mDataList = dataList;
         mContext = context;
         this.gridColumns=gridColumns;
 
     }
-    public DropDownPopupWindow(Context context, List<Map<String, Object>> nameStateList) {
-        this(context,nameStateList,0);
+    public DropDownPopupWindow(Context context, List<Map<String, Object>> dataList) {
+        this(context,dataList,0);
     }
 
     private void initView() {
@@ -47,7 +48,7 @@ public class DropDownPopupWindow extends PopupWindow implements DropDownViewRecy
         // id_pop_tv= (TextView) view.findViewById(R.id.id_pop_tv);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.id_rv);
-        myRecycleViewAdapter=new DropDownViewRecycleViewAdapter(mContext,mNameStateList,itemWidth);
+        myRecycleViewAdapter=new DropDownViewRecycleViewAdapter(mContext,mDataList,itemWidth);
         if (gridColumns==0) {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         }else{
@@ -72,17 +73,17 @@ public class DropDownPopupWindow extends PopupWindow implements DropDownViewRecy
 
     @Override
     public void onItemViewClick(View v, int Position) {
-                 this.dismiss();
+           this.dismiss();
 
-                nowName=mNameStateList.get(Position).get("name").toString();
+            Map<String,Object> nowMap =mDataList.get(Position);
 
-                onItemSelectListener.onItemSelect(nowName);
+           onItemSelectListener.onItemSelect(nowMap,Position);
 
     }
 
 
     public interface OnItemSelectListener {
-        void onItemSelect(String text);
+        void onItemSelect(Map<String,Object> map,int pos);
     }
 
     public void setOnItemSelectListener(OnItemSelectListener onItemSelectListener) {
@@ -149,4 +150,5 @@ public class DropDownPopupWindow extends PopupWindow implements DropDownViewRecy
         }
         return v.getMeasuredHeight();
     }
+
 }
