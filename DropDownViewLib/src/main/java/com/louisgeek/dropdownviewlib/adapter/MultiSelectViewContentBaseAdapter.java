@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * Created by louisgeek on 2016/6/17.
  */
-public class MultiSelectViewAdapter extends BaseAdapter {
+public class MultiSelectViewContentBaseAdapter extends BaseAdapter {
     public void updateMultiSelectMapListInner(List<Map<String, Object>> multiSelectMapListInner) {
         mMultiSelectMapListInner.clear();
         mMultiSelectMapListInner.addAll(multiSelectMapListInner);
@@ -32,10 +32,14 @@ public class MultiSelectViewAdapter extends BaseAdapter {
     // 用来导入布局
     private LayoutInflater inflater = null;
 
+    public int getCheckNum() {
+        return checkNum<0?0:checkNum;
+    }
+
     int checkNum = 0;
 
     // 构造器
-    public MultiSelectViewAdapter(Context context, List<Map<String, Object>> multiSelectMapListInner) {
+    public MultiSelectViewContentBaseAdapter(Context context, List<Map<String, Object>> multiSelectMapListInner) {
         this.context = context;
         this.mMultiSelectMapListInner = multiSelectMapListInner;
         inflater = LayoutInflater.from(context);
@@ -50,6 +54,7 @@ public class MultiSelectViewAdapter extends BaseAdapter {
         for (int i = 0; i < mMultiSelectMapListInner.size(); i++) {
             if (Boolean.parseBoolean(String.valueOf(mMultiSelectMapListInner.get(i).get("checked")))) {
                 isSelectedMap.put(i, true);//索引
+                checkNum++;
             }else{
                 isSelectedMap.put(i, false);//索引
             }
@@ -78,7 +83,7 @@ public class MultiSelectViewAdapter extends BaseAdapter {
             // 获得ViewHolder对象
             holder = new ViewHolder();
             // 导入布局并赋值给convertview
-            convertView = inflater.inflate(R.layout.muti_select_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.mutiselect_dialog_frag_list_item, parent, false);
             holder.tv = (TextView) convertView.findViewById(R.id.item_tv);
             holder.cb = (CheckBox) convertView.findViewById(R.id.item_cb);
             // 为view设置标签
@@ -99,7 +104,7 @@ public class MultiSelectViewAdapter extends BaseAdapter {
         CheckBox cb;
     }
 
-    public int seletOne(View view,int pos) {
+    public void seletOne(View view,int pos) {
         ViewHolder viewHolder= (ViewHolder) view.getTag();
         viewHolder.cb.toggle();//转变
         isSelectedMap.put(pos,viewHolder.cb.isChecked());
@@ -109,9 +114,9 @@ public class MultiSelectViewAdapter extends BaseAdapter {
             checkNum--;
         }
         this.notifyDataSetChanged();
-        return checkNum<0?0:checkNum;
+        checkNum=checkNum<0?0:checkNum;
     }
-    public int seletAll() {
+    public void seletAll() {
         // 遍历list，全部设为true
         for (int i = 0; i < mMultiSelectMapListInner.size(); i++) {
             if (!isSelectedMap.get(i)) {
@@ -120,10 +125,10 @@ public class MultiSelectViewAdapter extends BaseAdapter {
             }
         }
         this.notifyDataSetChanged();
-        return checkNum<0?0:checkNum;
+        checkNum=checkNum<0?0:checkNum;
     }
 
-    public int unSeletAll() {
+    public void unSeletAll() {
         // 遍历list，全部设为false
         for (int i = 0; i < mMultiSelectMapListInner.size(); i++) {
             if (isSelectedMap.get(i)) {
@@ -132,12 +137,12 @@ public class MultiSelectViewAdapter extends BaseAdapter {
             }
         }
         this.notifyDataSetChanged();
-        return checkNum<0?0:checkNum;
+        checkNum=checkNum<0?0:checkNum;
     }
 
 
 
-    public int backSelet() {
+    public void backSelet() {
         for (int i = 0; i < mMultiSelectMapListInner.size(); i++) {
             if (isSelectedMap.get(i)) {
                 isSelectedMap.put(i, false);
@@ -148,7 +153,7 @@ public class MultiSelectViewAdapter extends BaseAdapter {
             }
         }
         this.notifyDataSetChanged();
-        return checkNum<0?0:checkNum;
+        checkNum=checkNum<0?0:checkNum;
     }
 
 /*
